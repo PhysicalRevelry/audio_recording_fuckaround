@@ -19,7 +19,7 @@ class MyHomePage extends StatelessWidget {
             Text(
               'You have pushed the button this many times:',
             ),
-            Consumer<Counter>(
+            Consumer<RecorderState>(
               builder: (context, counter, _) {
                 return Text(
                   '${counter.value}',
@@ -32,10 +32,10 @@ class MyHomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          final counter = Provider.of<Counter>(context, listen: false);
+          final counter = Provider.of<RecorderState>(context, listen: false);
           counter.increment();
         },
-        tooltip: 'Increment',
+        tooltip: 'Recording Control',
         child: Icon(Icons.add),
       ),
     );

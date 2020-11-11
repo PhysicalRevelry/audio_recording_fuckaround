@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) =>
-              Counter(), //put your change Classes here, as many as you may need,
+              RecorderState(), //put your change Classes here, as many as you may need,
         ),
       ],
       child: MaterialApp(

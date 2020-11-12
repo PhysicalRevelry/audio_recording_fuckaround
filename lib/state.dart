@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io' as io;
+import 'dart:js';
 import 'package:file/local.dart';
 import 'package:file/file.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,8 @@ import 'package:path_provider/path_provider.dart';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_audio_recorder/flutter_audio_recorder.dart';
+
+import 'accept_dialog.dart';
 
 class RecorderState extends ChangeNotifier {
   final LocalFileSystem localFileSystem;
@@ -30,16 +33,18 @@ class RecorderState extends ChangeNotifier {
   Recording current;
   RecordingStatus currentStatus = RecordingStatus.Unset;
 
-  void toggleButton(currentStatus){
+  //TODO toggle icon based on status
+
+  void toggleButton(context, currentStatus){
     switch (currentStatus) {
       case RecordingStatus.Initialized:
         {
-          start(); 
+          start(); //TODO add a change icon
           break;
         }
       case RecordingStatus.Recording:
         {
-          stop(); //TODO bring in stop()
+          stop(); //TODO change icon
           break;
         }
       // case RecordingStatus.Paused:
@@ -49,7 +54,7 @@ class RecorderState extends ChangeNotifier {
       //   }
       case RecordingStatus.Stopped:
         {
-          init(); //TODO show a difference icon/ prompt string for init
+          init(context); //TODO add a change icon
           break;
         }
       default:
@@ -103,7 +108,7 @@ class RecorderState extends ChangeNotifier {
     // });
   }
 
-  init() async {
+  init(context) async {
     try {
       if (await FlutterAudioRecorder.hasPermissions) {
         String customPath = '/flutter_audio_recorder_';
@@ -142,13 +147,21 @@ class RecorderState extends ChangeNotifier {
         // });
       } else {
         //TODO change this snackbar to AlertDialog perhaps
-        Scaffold.of(context).showSnackBar(
-            new SnackBar(content: new Text("You must accept permissions")));
+        acceptPermission(context);
       }
     } catch (e) {
       print(e);
     }
   }
 
+  Future<Widget> acceptPermission(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AcceptPermission();
+        });
+  }
 
 }
+
+

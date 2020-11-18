@@ -16,7 +16,7 @@ class RecorderState extends ChangeNotifier {
 
   RecorderState({localFileSystem})
       : this.localFileSystem = localFileSystem ?? LocalFileSystem();
-
+  ///All of this stuff below is the old counter shit
   int value = 0;
 
   void increment() {
@@ -32,6 +32,7 @@ class RecorderState extends ChangeNotifier {
   FlutterAudioRecorder recorder;
   Recording current;
   RecordingStatus currentStatus = RecordingStatus.Unset;
+  Icon recordingStatusIcon = Icon(Icons.mic_rounded);
 
   //TODO toggle icon based on status
 
@@ -40,11 +41,13 @@ class RecorderState extends ChangeNotifier {
       case RecordingStatus.Initialized:
         {
           start(); //TODO add a change icon
+          recordingStatusIcon = Icon(Icons.stop);
           break;
         }
       case RecordingStatus.Recording:
         {
           stop(); //TODO change icon
+          recordingStatusIcon = Icon(Icons.mic_rounded);
           break;
         }
       // case RecordingStatus.Paused:
@@ -55,6 +58,7 @@ class RecorderState extends ChangeNotifier {
       case RecordingStatus.Stopped:
         {
           init(context); //TODO add a change icon
+          recordingStatusIcon = Icon(Icons.mic_rounded);
           break;
         }
       default:

@@ -21,22 +21,23 @@ class MyHomePage extends StatelessWidget {
             ),
             Consumer<RecorderState>(
               builder: (context, counter, _) {
-                return Text(
+                return Text( //TODO I want this text to show the file name
                   '${counter.value}',
-                  style: Theme.of(context).textTheme.display1,
+                  style: Theme.of(context).textTheme.headline4,
                 );
+                //TODO After the file name I want a button that sends the file to postbin.
               },
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton( //TODO I want this to start and stop recording
         onPressed: () {
           final counter = Provider.of<RecorderState>(context, listen: false);
           counter.increment();
         },
         tooltip: 'Recording Control',
-        child: Icon(Icons.add),
+        child: Provider.of<RecorderState>(context, listen: false).recordingStatusIcon,
       ),
     );
   }

@@ -145,7 +145,9 @@ class RecorderState extends ChangeNotifier {
         });
   }
 
+
   Future<File> get localFile async {
+    print('What we\'r deleting: ${io.File(current.path)}');
     return io.File(current.path);
   }
 
@@ -157,6 +159,7 @@ class RecorderState extends ChangeNotifier {
       return 0;
     }
   }
+
 
 }
 

@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'dart:io' as io;
-import 'dart:js';
 import 'package:file/local.dart';
 import 'package:file/file.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-
 import 'package:flutter/widgets.dart';
 import 'package:flutter_audio_recorder/flutter_audio_recorder.dart';
 
@@ -16,18 +14,6 @@ class RecorderState extends ChangeNotifier {
 
   RecorderState({localFileSystem})
       : this.localFileSystem = localFileSystem ?? LocalFileSystem();
-  ///All of this stuff below is the old counter shit
-  int value = 0;
-
-  void increment() {
-    value++;
-    notifyListeners();
-  }
-
-  void decrement() {
-    value--;
-    notifyListeners();
-  }
 
   FlutterAudioRecorder recorder;
   Recording current;
@@ -36,8 +22,21 @@ class RecorderState extends ChangeNotifier {
 
   //TODO toggle icon based on status
 
-  void toggleButton(context, currentStatus){
+  void pressRecord(context) {
+    if (currentStatus == RecordingStatus.Unset){
+      // init(context);
+      start();
+    } else {
+      toggleButton(context);
+    }
+  }
+
+  void toggleButton(context){
     switch (currentStatus) {
+      case RecordingStatus.Unset:
+        init(context);
+        recordingStatusIcon = Icon(Icons.play_arrow);
+        break;
       case RecordingStatus.Initialized:
         {
           start(); //TODO add a change icon
@@ -50,15 +49,10 @@ class RecorderState extends ChangeNotifier {
           recordingStatusIcon = Icon(Icons.mic_rounded);
           break;
         }
-      // case RecordingStatus.Paused:
-      //   {
-      //     resume(); //TODO remove resume as an option
-      //     break;
-      //   }
       case RecordingStatus.Stopped:
         {
-          init(context); //TODO add a change icon
-          recordingStatusIcon = Icon(Icons.mic_rounded);
+          start(); //TODO add a change icon
+          recordingStatusIcon = Icon(Icons.stop);
           break;
         }
       default:
@@ -72,9 +66,6 @@ class RecorderState extends ChangeNotifier {
       var recording = await recorder.current(channel: 0);
       current = recording;
       notifyListeners();
-      // setState(() { //TODO change to notifyListeners()
-      //   current = recording;
-      // });
 
       const tick = const Duration(milliseconds: 50);
       new Timer.periodic(tick, (Timer t) async {
@@ -86,11 +77,8 @@ class RecorderState extends ChangeNotifier {
         // print(current.status);
         current = current;
         currentStatus = current.status;
+        print('Current status is $currentStatus'); //TODO remove this later
         notifyListeners();
-        // setState(() { //TODO change to notifyListeners()
-        //   // current = current;
-        //   // currentStatus = current.status;
-        // });
       });
     } catch (e) {
       print(e);
@@ -101,15 +89,12 @@ class RecorderState extends ChangeNotifier {
     var result = await recorder.stop();
     print("Stop recording: ${result.path}");
     // print("Stop recording: ${result.duration}");
-    File file = localFileSystem.file(result.path); //TODO gotta figure out why this doesnt work here
+    File file = localFileSystem.file(result.path);
     print("File length: ${await file.length()}");
     current = result;
     currentStatus = current.status;
+    print('Current status is $currentStatus'); //TODO remove this later
     notifyListeners();
-    // setState(() {
-    //   current = result;
-    //   currentStatus = current.status;
-    // });
   }
 
   init(context) async {
@@ -144,13 +129,7 @@ class RecorderState extends ChangeNotifier {
         currentStatus = current.status;
         print(currentStatus);
         notifyListeners();
-        // setState(() {
-        //   current = current;
-        //   currentStatus = current.status; //TODO added a notifyListeners() here
-        //   print(currentStatus);
-        // });
       } else {
-        //TODO change this snackbar to AlertDialog perhaps
         acceptPermission(context);
       }
     } catch (e) {
@@ -164,6 +143,19 @@ class RecorderState extends ChangeNotifier {
         builder: (context) {
           return AcceptPermission();
         });
+  }
+
+  Future<File> get localFile async {
+    return io.File(current.path);
+  }
+
+  Future<int> deleteRecording() async {
+    try {
+      final file = await localFile;
+      await file.delete();
+    } catch (e) {
+      return 0;
+    }
   }
 
 }

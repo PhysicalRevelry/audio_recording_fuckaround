@@ -54,12 +54,20 @@ class MyHomePage extends StatelessWidget {
                         : "(Please record your voice)"),
                 GestureDetector(
                   onTap: (){
-                    //TODO put your delete and init fxn here
-                    record.deleteRecording().then((value) => record.init(context));
+                    record.delete(context);
+                    record.current.path = null;
                   },
-                  child: FlatButton(
-                    color: Colors.blue,
-                    child: Text('Delete Recording'),
+                  child: Container(
+                    padding: EdgeInsets.all(25),
+                    margin: EdgeInsets.symmetric(vertical: 25.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.0),
+                      color: Colors.blue,
+                    ),
+                    child: Text('Delete Recording',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),),
                   ),
                 )
               ],

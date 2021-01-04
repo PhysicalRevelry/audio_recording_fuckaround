@@ -23,15 +23,15 @@ class RecorderState extends ChangeNotifier {
   //TODO toggle icon based on status
 
   void pressRecord(context) {
-    if (currentStatus == RecordingStatus.Unset){
+    if (currentStatus == RecordingStatus.Unset) {
       // init(context);
-      start();
+      start(context);
     } else {
       toggleButton(context);
     }
   }
 
-  void toggleButton(context){
+  void toggleButton(context) {
     switch (currentStatus) {
       case RecordingStatus.Unset:
         init(context);
@@ -39,7 +39,7 @@ class RecorderState extends ChangeNotifier {
         break;
       case RecordingStatus.Initialized:
         {
-          start(); //TODO add a change icon
+          start(context); //TODO add a change icon
           recordingStatusIcon = Icon(Icons.stop);
           break;
         }
@@ -51,7 +51,7 @@ class RecorderState extends ChangeNotifier {
         }
       case RecordingStatus.Stopped:
         {
-          start(); //TODO add a change icon
+          start(context); //TODO add a change icon
           recordingStatusIcon = Icon(Icons.stop);
           break;
         }
@@ -60,17 +60,21 @@ class RecorderState extends ChangeNotifier {
     }
   }
 
-  start() async {
+  start(context) async {
     try {
       await recorder.start();
       var recording = await recorder.current(channel: 0);
       current = recording;
       notifyListeners();
 
-      const tick = const Duration(milliseconds: 50);
+      const tick = const Duration(milliseconds: 500);
+      int elapsed = 0;
       new Timer.periodic(tick, (Timer t) async {
-        if (currentStatus == RecordingStatus.Stopped) {
+        elapsed++;
+        if (currentStatus == RecordingStatus.Stopped || elapsed == 10) {
           t.cancel();
+          stop();
+          toggleButton(context);
         }
 
         var current = await recorder.current(channel: 0);
@@ -78,6 +82,7 @@ class RecorderState extends ChangeNotifier {
         current = current;
         currentStatus = current.status;
         print('Current status is $currentStatus'); //TODO remove this later
+        print('$elapsed');
         notifyListeners();
       });
     } catch (e) {
@@ -145,22 +150,11 @@ class RecorderState extends ChangeNotifier {
         });
   }
 
-
-  Future<File> get localFile async {
-    print('What we\'r deleting: ${io.File(current.path)}');
-    return io.File(current.path);
-  }
-
-  Future<int> deleteRecording() async {
-    try {
-      final file = await localFile;
-      await file.delete();
-    } catch (e) {
-      return 0;
+  void delete(context) {
+    if (current != null && current.path != null) {
+      var file = localFileSystem.file(current.path);
+      file.delete(recursive: false);
+      init(context);
     }
   }
-
-
 }
-
-

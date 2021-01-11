@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:true_coach_apiplay/screens/record_a.dart';
+import 'package:true_coach_apiplay/screens/record_i.dart';
+import 'package:true_coach_apiplay/screens/record_u.dart';
+import 'package:true_coach_apiplay/screens/results.dart';
 import 'package:true_coach_apiplay/screens/welcome.dart';
 import 'state/recorder_state.dart';
 import 'reference_shit/record.dart';
@@ -23,9 +26,9 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => WelcomePage(),
           '/record_a': (context) => RecordA(),
-          '/record_i': (context) => ,
-          '/record_u': (context) => ,
-          '/results': (context) => ,
+          '/record_i': (context) => RecordI(),
+          '/record_u': (context) => RecordU(),
+          '/results': (context) => Results(),
         },
         title: 'Flutter Demo',
         theme: ThemeData(

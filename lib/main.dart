@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:true_coach_apiplay/constants/theme.dart';
 import 'package:true_coach_apiplay/screens/record_a.dart';
 import 'package:true_coach_apiplay/screens/record_i.dart';
 import 'package:true_coach_apiplay/screens/record_u.dart';
@@ -31,9 +32,7 @@ class MyApp extends StatelessWidget {
           '/results': (context) => Results(),
         },
         title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: openTheme(),
         home: Initializer(),
       ),
     );

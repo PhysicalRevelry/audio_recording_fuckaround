@@ -3,10 +3,13 @@
 A new Flutter application.
 
 ## To Do List
-- [x]Toggle the button icon based on recording status 
-- [X]Print out the file name and length on screen
-- []set up a postbin to send the file to
-- []send file and check quality
-- [x]Look into how to use RIVE animations (copying, integrating, etc)
-- [x] record for 5 seconds and auto stop
-- [] shared preferences: need to create a UID on first opening that is maintained on close and start up
+- Figure out tween animations
+   - one should be the letter getting big over 5 seconds
+   - one should be the back ground image getting lighter over 5 seconds
+   - the button should turn into a counter that counts down the seconds
+   - around the button is a growing circle border that takes 5 seconds to complete
+   - at the end of 5 seconds, background turns white and letter takes up whole screen, counter disappears
+- Recording and sending recording
+  - start recording on button click (coincides with animation start)
+  -
+

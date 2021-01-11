@@ -12,7 +12,6 @@ class AcceptPermission extends StatelessWidget {
           AppSettings.openAppSettings();
         },
       ),
-
     );
   }
 }

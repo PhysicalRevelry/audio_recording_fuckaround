@@ -7,7 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_audio_recorder/flutter_audio_recorder.dart';
 
-import 'accept_dialog.dart';
+import '../widgets/accept_dialog.dart';
 
 class RecorderState extends ChangeNotifier {
   final LocalFileSystem localFileSystem;

@@ -8,4 +8,5 @@ A new Flutter application.
 - []set up a postbin to send the file to
 - []send file and check quality
 - [x]Look into how to use RIVE animations (copying, integrating, etc)
--
+- [x] record for 5 seconds and auto stop
+- [] shared preferences: need to create a UID on first opening that is maintained on close and start up

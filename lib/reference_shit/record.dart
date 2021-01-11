@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'state.dart';
+import 'package:true_coach_apiplay/screens/welcome.dart';
+import '../state/recorder_state.dart';
 import 'package:provider/provider.dart';
 
 ///This is a stateful widget ONLY to initialize the recorder state
@@ -18,7 +19,7 @@ class _InitializerState extends State<Initializer> {
 
   @override
   Widget build(BuildContext context) {
-    return MyHomePage(title: "Let's Make Music!",);
+    return WelcomePage();
   }
 
 }

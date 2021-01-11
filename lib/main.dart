@@ -22,9 +22,9 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        initialRoute: '/',
+        // initialRoute: '/',
         routes: {
-          '/': (context) => WelcomePage(),
+          '/welcome': (context) => WelcomePage(),
           '/record_a': (context) => RecordA(),
           '/record_i': (context) => RecordI(),
           '/record_u': (context) => RecordU(),

@@ -4,19 +4,27 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('COVID Detector'),
       ),
       body: SafeArea(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             //Welcome image and logo
-            Image(image: null),
+            // Image(image: null),
             //General Description of what's going on
-            Text('Instructions'),
+            Text('Instructions',
+            textAlign: TextAlign.center,),
             //This might go above with stack on Image, need Navigation
             GestureDetector(
-              onTap: (){},
+              child: Text('Get Started',
+              textAlign: TextAlign.center,),
+              onTap: (){
+                Navigator.pushNamed(context, '/record_a');
+              },
             ),
           ],
         ),

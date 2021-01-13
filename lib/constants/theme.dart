@@ -18,5 +18,6 @@ ThemeData openTheme() {
   return base.copyWith(
     textTheme: basicTextTheme(base.textTheme),
     scaffoldBackgroundColor: Colors.black,
+    primaryColor: Colors.black,
   );
 }

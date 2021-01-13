@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:true_coach_apiplay/constants/theme.dart';
+import 'package:true_coach_apiplay/reference_shit/sandbox.dart';
+import 'package:true_coach_apiplay/reference_shit/tween_tutorial.dart';
 import 'package:true_coach_apiplay/screens/record_a.dart';
 import 'package:true_coach_apiplay/screens/record_i.dart';
 import 'package:true_coach_apiplay/screens/record_u.dart';
 import 'package:true_coach_apiplay/screens/results.dart';
 import 'package:true_coach_apiplay/screens/welcome.dart';
+import 'package:true_coach_apiplay/state/animations.dart';
 import 'state/recorder_state.dart';
 import 'reference_shit/record.dart';
 
@@ -21,6 +24,10 @@ class MyApp extends StatelessWidget {
           create: (_) =>
               RecorderState(), //put your change Classes here, as many as you may need,
         ),
+        ChangeNotifierProvider(
+          create: (_) =>
+              Animations(), //put your change Classes here, as many as you may need,
+        ),
       ],
       child: MaterialApp(
         // initialRoute: '/',
@@ -33,9 +40,8 @@ class MyApp extends StatelessWidget {
         },
         title: 'Flutter Demo',
         theme: openTheme(),
-        home: Initializer(),
+        home: RecordA(),
       ),
     );
   }
 }
-

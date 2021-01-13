@@ -38,7 +38,7 @@ class RecordU extends StatelessWidget {
                   ),
                 ),
                 onTap: (){
-                  Navigator.pushNamed(context, '/results');
+                  Navigator.pushReplacementNamed(context, '/results');
                 },
               ),
             ],

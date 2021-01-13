@@ -9,24 +9,38 @@ class WelcomePage extends StatelessWidget {
         title: Text('COVID Detector'),
       ),
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            //Welcome image and logo
-            // Image(image: null),
-            //General Description of what's going on
-            Text('Instructions',
-            textAlign: TextAlign.center,),
-            //This might go above with stack on Image, need Navigation
-            GestureDetector(
-              child: Text('Get Started',
-              textAlign: TextAlign.center,),
-              onTap: (){
-                Navigator.pushNamed(context, '/record_a');
-              },
-            ),
-          ],
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              //Welcome image and logo
+              // Image(image: null),
+              //General Description of what's going on
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: Colors.yellow,
+                    width: 10,
+                    style: BorderStyle.solid,
+                  )
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 25.0),
+                  child: Text('Instructions',
+                  textAlign: TextAlign.center,),
+                ),
+              ),
+              //This might go above with stack on Image, need Navigation
+              GestureDetector(
+                child: Text('Get Started',
+                textAlign: TextAlign.center,),
+                onTap: (){
+                  Navigator.pushReplacementNamed(context, '/record_a');
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

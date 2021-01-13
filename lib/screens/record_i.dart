@@ -38,7 +38,7 @@ class RecordI extends StatelessWidget {
                   ),
                 ),
                 onTap: (){
-                  Navigator.pushNamed(context, '/record_u');
+                  Navigator.pushReplacementNamed(context, '/record_u');
                 },
               ),
             ],

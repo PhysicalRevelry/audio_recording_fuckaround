@@ -12,7 +12,7 @@ class RecordA extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               //Welcome image and logo
@@ -22,12 +22,39 @@ class RecordA extends StatelessWidget {
                 'This is how you record the A sound',
                 textAlign: TextAlign.center,
               ),
-              AnimatedDefaultTextStyle(
-                style: TextStyle(
-                  fontSize: Provider.of<Animations>(context, listen: true).fontSize,
+              Container(
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
+                height: MediaQuery.of(context).size.height * 0.6,
+                decoration: BoxDecoration(
+                  // boxShadow: [
+                  //   BoxShadow(color: Colors.black, blurRadius: -20.0,),
+                  // ],
+                  gradient: RadialGradient(
+                    colors: [Colors.purple, Colors.black],
+                    center: Alignment(0.0, 0.0),
+                    radius: 0.6,
+
+                  ),
+                  color: Colors.purple,
                 ),
-                duration: Duration(seconds: 5),
-                child: Text('a'),
+                child: Center(
+                  child: AnimatedDefaultTextStyle(
+                    style: TextStyle(
+                      fontSize: Provider
+                          .of<Animations>(context, listen: true)
+                          .fontSize,
+                    ),
+                    duration: Duration(seconds: 5),
+                    child: Text('a',
+                      textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),),
+                  ),
+                ),
               ),
               //This might go above with stack on Image, need Navigation
               GestureDetector(
@@ -49,7 +76,8 @@ class RecordA extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                  Provider.of<Animations>(context, listen: false).animateLetter();
+                  Provider.of<Animations>(context, listen: false)
+                      .animateLetter();
                   // Navigator.pushReplacementNamed(context, '/record_i');
                 },
               ),

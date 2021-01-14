@@ -23,36 +23,45 @@ class RecordA extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               Container(
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
+                width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.6,
                 decoration: BoxDecoration(
-                  // boxShadow: [
-                  //   BoxShadow(color: Colors.black, blurRadius: -20.0,),
-                  // ],
-                  gradient: RadialGradient(
-                    colors: [Colors.purple, Colors.black],
-                    center: Alignment(0.0, 0.0),
-                    radius: 0.6,
-
-                  ),
-                  color: Colors.purple,
-                ),
-                child: Center(
-                  child: AnimatedDefaultTextStyle(
-                    style: TextStyle(
-                      fontSize: Provider
-                          .of<Animations>(context, listen: true)
-                          .fontSize,
+                  boxShadow: [
+                    BoxShadow(
+                      //Outer edge color of the blur/shadow
+                      color: Colors.black,
                     ),
-                    duration: Duration(seconds: 5),
-                    child: Text('a',
-                      textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),),
+                    BoxShadow(
+                      //inside color of the blur/shadow
+                      ///How do I make this in image? Colors.transparent and stack on jpg?
+                      color: Colors.greenAccent,
+                      //This number will have to animate for effect
+                      spreadRadius: -50.0,
+                      blurRadius: 100.0,
+                    ),
+                  ],
+                ),
+                child: OverflowBox(
+                  alignment: Alignment.center,
+                  maxHeight: double.infinity,
+                  child: Center(
+                    child: AnimatedDefaultTextStyle(
+                      style: TextStyle(
+                        fontSize:
+                            Provider.of<Animations>(context, listen: true)
+                                .fontSize,
+                      ),
+                      duration: Duration(seconds: 5),
+                      ///Will need to animate a spaced box under the letter so that it stays centered >_<
+                      child: Text(
+                        'a',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          height: 0.9,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),

@@ -5,7 +5,7 @@ class Animations extends ChangeNotifier {
   double fontSize = 60;
 
   void animateLetter() {
-    fontSize = 500;
+    fontSize = 900;
     notifyListeners();
   }
 }
